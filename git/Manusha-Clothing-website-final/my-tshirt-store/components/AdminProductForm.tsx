@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { CloudinaryUploadWidget } from "@/components/CloudinaryUploadWidget";
+import ImageUpload from "@/components/ImageUpload";
 
 type Category = { id: string; name: string };
 type Product = {
@@ -64,7 +64,7 @@ export function AdminProductForm({ categories, product }: { categories: Category
         <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} />
         Featured
       </label>
-      <CloudinaryUploadWidget onUploaded={(url) => setForm((current) => ({ ...current, imageUrl: url }))} />
+      <ImageUpload onUpload={(url) => setForm((current) => ({ ...current, imageUrl: url }))} />
     </div>
   );
 }
