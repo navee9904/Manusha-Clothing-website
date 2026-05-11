@@ -22,7 +22,10 @@ export async function POST(request: Request) {
 
   if (!image) return NextResponse.json({ error: "Image file is required" }, { status: 400 });
 
-  const result = await cloudinary.uploader.upload(image, { folder: "tshirt-store" });
-
-  return NextResponse.json({ url: result.secure_url, public_id: result.public_id });
+  try {
+    const result = await cloudinary.uploader.upload(image, { folder: "tshirt-store" });
+    return NextResponse.json({ url: result.secure_url, public_id: result.public_id });
+  } catch {
+    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+  }
 }

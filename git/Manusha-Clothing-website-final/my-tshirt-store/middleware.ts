@@ -1,14 +1,32 @@
-import { type NextRequest } from "next/server";
-import { createClient } from "@/utils/supabase/middleware";
+import { withAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
 
-export async function middleware(request: NextRequest) {
-  const supabaseClient = createClient(request);
+export default withAuth(
+  function middleware(request) {
+    const role = request.nextauth.token?.role;
+    const pathname = request.nextUrl.pathname;
 
-  await supabaseClient.supabase.auth.getUser();
+    if (pathname.startsWith("/admin") && role !== "admin") {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
 
-  return supabaseClient.response;
-}
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized({ token, req }) {
+        const pathname = req.nextUrl.pathname;
+        if (pathname.startsWith("/admin")) return token?.role === "admin";
+        if (pathname.startsWith("/account")) return Boolean(token);
+        return true;
+      },
+    },
+    pages: {
+      signIn: "/login",
+    },
+  },
+);
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
+  matcher: ["/admin/:path*", "/account/:path*"],
 };

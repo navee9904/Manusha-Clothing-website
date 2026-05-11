@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Bebas_Neue, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Providers } from "@/components/Providers";
+import { Footer } from "@/components/Footer";
 
-const display = Playfair_Display({
+const display = Bebas_Neue({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["700", "900"],
+  weight: "400",
 });
 
 const sans = Inter({
@@ -16,7 +17,7 @@ const sans = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MONO TEE",
+  title: "MANUSHA",
   description: "A black and white T-shirt ecommerce store.",
 };
 
@@ -31,6 +32,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>

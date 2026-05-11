@@ -21,7 +21,7 @@ h1,
 h2,
 h3,
 .font-serif {
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), Impact, sans-serif;
   letter-spacing: 0;
 }
 
@@ -36,3 +36,7 @@ button {
   border-radius: 0;
 }
 
+::selection {
+  background: #000000;
+  color: #ffffff;
+}

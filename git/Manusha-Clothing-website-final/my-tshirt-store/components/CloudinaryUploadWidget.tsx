@@ -32,7 +32,7 @@ export function CloudinaryUploadWidget({ onUploaded }: { onUploaded: (url: strin
           cloudName,
           uploadPreset,
           sources: "local,camera,url",
-          folder: "mono-tee/products",
+          folder: "tshirt-store",
         },
         (error, result) => {
           if (error) toast.error("Upload failed");
@@ -70,4 +70,3 @@ export function CloudinaryUploadWidget({ onUploaded }: { onUploaded: (url: strin
     </div>
   );
 }
-

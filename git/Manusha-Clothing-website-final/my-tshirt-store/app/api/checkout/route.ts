@@ -62,7 +62,7 @@ export async function POST(request: Request) {
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "payment",
     line_items: lineItems,
-    success_url: `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/orders`,
+    success_url: `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/account/orders`,
     cancel_url: `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/cart`,
     metadata: { orderId: order.id },
   });
@@ -74,4 +74,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ url: checkoutSession.url });
 }
-
